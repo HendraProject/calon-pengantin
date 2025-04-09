@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendaftaran Calon Pengantin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style>
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary-color: #2e86de;
+            --secondary-color: #48dbfb;
+            --accent-color: #ff6b81;
+            --dark-color: #2d3436;
+            --light-color: #f5f5f5;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            animation: fadeIn 1s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -100% 0; }
+            100% { background-position: 100% 0; }
+        }
+        
+        .container {
+            max-width: 100%;
+            padding: 20px;
+            animation: slideUp 0.8s ease-out forwards;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 20px 15px;
+            text-align: center;
+            border-radius: 15px 15px 0 0;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(46, 134, 222, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.3), rgba(255,255,255,0));
+            transform: rotate(30deg);
+            animation: shimmer 4s infinite linear;
+            pointer-events: none;
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+            font-weight: 700;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .form-container {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            animation: slideUp 1s ease-out forwards;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group:hover {
+            transform: translateX(5px);
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark-color);
+            transition: color 0.3s ease;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: rgba(245, 245, 245, 0.5);
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 15px rgba(46, 134, 222, 0.15);
+            transform: translateY(-2px);
+            background-color: white;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(46, 134, 222, 0.3);
+        }
+        
+        .btn:hover {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(46, 134, 222, 0.4);
+        }
+        
+        .btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1) translate(-50%, -50%);
+            transform-origin: 50% 50%;
+        }
+        
+        .btn:focus::after {
+            animation: ripple 1s ease-out;
+        }
+        
+        @keyframes ripple {
+            0% {
+                transform: scale(0) translate(-50%, -50%);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(20) translate(-50%, -50%);
+                opacity: 0;
+            }
+        }
+        
+        .section-title {
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+            color: var(--primary-color);
+            font-weight: 600;
+            position: relative;
+            animation: fadeIn 1s ease-out forwards;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            transition: width 0.3s ease;
+        }
+        
+        .section-title:hover::after {
+            width: 100px;
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+        }
+        
+        .radio-option input {
+            margin-right: 5px;
+        }
+        
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23333' viewBox='0 0 16 16'%3E%3Cpath d='M8 11l4-4H4l4 4z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            padding-right: 40px;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #888;
+            padding: 15px 0;
+            animation: fadeIn 1.2s ease-out forwards;
+        }
+        
+        @media (min-width: 768px) {
+            .container {
+                max-width: 600px;
+                margin: 0 auto;
+            }
+        }
+        
+        /* Animasi form group pada scroll */
+        .form-container .form-group {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .form-container .form-group.animate {
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+        
+        /* Sound Control Button */
+        .sound-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        
+        .sound-control:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .sound-icon {
+            font-size: 24px;
+            color: var(--primary-color);
+        }
+        
+        .welcome-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+        }
+        
+        .welcome-popup.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .welcome-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 80%;
+            transform: scale(0.8);
+            transition: all 0.5s ease;
+        }
+        
+        .welcome-popup.active .welcome-content {
+            transform: scale(1);
+        }
+        
+        .welcome-title {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .start-btn {
+            margin-top: 20px;
+            padding: 10px 25px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .start-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Welcome Popup -->
+    <div class="welcome-popup" id="welcomePopup">
+        <div class="welcome-content">
+            <h2 class="welcome-title">Selamat Datang!</h2>
+            <p>Terima kasih telah mengunjungi Sistem Informasi Pendaftaran Calon Pengantin.</p>
+            <button class="start-btn" id="startBtn">Mulai</button>
+        </div>
+    </div>
+
+    <!-- Sound Control Button -->
+    <div class="sound-control" id="soundControl" title="Aktifkan/Nonaktifkan Suara">
+        <span class="sound-icon">🔊</span>
+    </div>
+
+    <!-- Audio Element for Welcome Message -->
+    <audio id="welcomeAudio" preload="auto">
+        <source src="" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div class="container">
+        <header class="animate__animated animate__fadeIn">
+            <h1 class="animate__animated animate__bounceIn animate__delay-1s">Pendaftaran CATIN</h1>
+            <div class="subtitle animate__animated animate__fadeIn animate__delay-1s">Sistem Informasi Pendaftaran Calon Pengantin</div>
+        </header>
+        
+        <div class="form-container">
+            <form id="pendaftaranForm">
+                <h3 class="section-title animate__animated animate__fadeInLeft">Data Calon Pengantin Pria</h3>
+                
+                <div class="form-group">
+                    <label class="form-label">NIK</label>
+                    <input type="text" class="form-control" placeholder="Masukkan NIK" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Nama Lengkap</label>
+                    <input type="text" class="form-control" placeholder="Masukkan nama lengkap" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Tempat Lahir</label>
+                    <input type="text" class="form-control" placeholder="Masukkan tempat lahir" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Tanggal Lahir</label>
+                    <input type="date" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Alamat</label>
+                    <textarea class="form-control" rows="3" placeholder="Masukkan alamat lengkap" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Agama</label>
+                    <select class="form-control" required>
+                        <option value="">-- Pilih Agama --</option>
+                        <option value="islam">Islam</option>
+                        <option value="kristen">Kristen</option>
+                        <option value="katolik">Katolik</option>
+                        <option value="hindu">Hindu</option>
+                        <option value="buddha">Buddha</option>
+                        <option value="konghucu">Konghucu</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Pekerjaan</label>
+                    <input type="text" class="form-control" placeholder="Masukkan pekerjaan" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Status Perkawinan</label>
+                    <select class="form-control" required>
+                        <option value="">-- Pilih Status --</option>
+                        <option value="jejaka">Jejaka</option>
+                        <option value="duda">Duda</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Nomor Telepon</label>
+                    <input type="tel" class="form-control" placeholder="Masukkan nomor telepon" required>
+                </div>
+                
+                <h3 class="section-title animate__animated animate__fadeInRight">Data Calon Pengantin Wanita</h3>
+                
+                <div class="form-group">
+                    <label class="form-label">NIK</label>
+                    <input type="text" class="form-control" placeholder="Masukkan NIK" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Nama Lengkap</label>
+                    <input type="text" class="form-control" placeholder="Masukkan nama lengkap" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Tempat Lahir</label>
+                    <input type="text" class="form-control" placeholder="Masukkan tempat lahir" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Tanggal Lahir</label>
+                    <input type="date" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Alamat</label>
+                    <textarea class="form-control" rows="3" placeholder="Masukkan alamat lengkap" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Agama</label>
+                    <select class="form-control" required>
+                        <option value="">-- Pilih Agama --</option>
+                        <option value="islam">Islam</option>
+                        <option value="kristen">Kristen</option>
+                        <option value="katolik">Katolik</option>
+                        <option value="hindu">Hindu</option>
+                        <option value="buddha">Buddha</option>
+                        <option value="konghucu">Konghucu</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Pekerjaan</label>
+                    <input type="text" class="form-control" placeholder="Masukkan pekerjaan" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Status Perkawinan</label>
+                    <select class="form-control" required>
+                        <option value="">-- Pilih Status --</option>
+                        <option value="perawan">Perawan</option>
+                        <option value="janda">Janda</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Nomor Telepon</label>
+                    <input type="tel" class="form-control" placeholder="Masukkan nomor telepon" required>
+                </div>
+                
+                <h3 class="section-title animate__animated animate__fadeInUp">Informasi Pernikahan</h3>
+                
+                <div class="form-group">
+                    <label class="form-label">Tanggal Akad Nikah</label>
+                    <input type="date" class="form-control" required>
+                </div>
+                
+                <button type="submit" class="btn animate__animated animate__pulse animate__infinite">Daftar Sekarang</button>
+            </form>
+        </div>
+        
+        <div class="footer">
+            <p>&copy; 2025 Sistem Informasi Pendaftaran Calon Pengantin</p>
+        </div>
+    </div>
+
+    <script>
+        // Audio Setup menggunakan Web Speech API
+        const welcomeMessage = "Selamat datang di Sistem Informasi Pendaftaran Calon Pengantin. Kami siap membantu Anda mendaftarkan pernikahan dengan mudah dan cepat. ";
+        let speechSynthesis = window.speechSynthesis;
+        let speechUtterance = new SpeechSynthesisUtterance(welcomeMessage);
+        speechUtterance.lang = 'id-ID'; // Bahasa Indonesia
+        speechUtterance.rate = 0.9; // Sedikit lebih lambat dari kecepatan normal
+        
+        // Kontrol suara
+        let soundEnabled = true;
+        const soundControl = document.getElementById('soundControl');
+        
+        // Welcome Popup
+        const welcomePopup = document.getElementById('welcomePopup');
+        const startBtn = document.getElementById('startBtn');
+        
+        // Tampilkan popup selamat datang saat halaman dimuat
+        window.addEventListener('load', () => {
+            welcomePopup.classList.add('active');
+        });
+        
+        // Tutup popup dan putar suara
+        startBtn.addEventListener('click', () => {
+            welcomePopup.classList.remove('active');
+            
+            // Delay sebentar sebelum memainkan audio
+            setTimeout(() => {
+                if (soundEnabled) {
+                    playWelcomeMessage();
+                }
+            }, 500);
+            
+            // Animasi form setelah popup ditutup
+            setTimeout(checkFormGroups, 800);
+            setupButtonAnimation();
+        });
+        
+        // Toggle suara
+        soundControl.addEventListener('click', () => {
+            soundEnabled = !soundEnabled;
+            if (soundEnabled) {
+                soundControl.querySelector('.sound-icon').textContent = '🔊';
+                playWelcomeMessage();
+            } else {
+                soundControl.querySelector('.sound-icon').textContent = '🔇';
+                speechSynthesis.cancel(); // Hentikan suara jika sedang diputar
+            }
+        });
+        
+        // Fungsi untuk memutar pesan sambutan
+        function playWelcomeMessage() {
+            if (speechSynthesis) {
+                // Reset terlebih dahulu untuk menghindari bug pada beberapa browser
+                speechSynthesis.cancel();
+                
+                // Uji ketersediaan suara bahasa Indonesia
+                let voices = speechSynthesis.getVoices();
+                let indonesianVoice = voices.find(voice => voice.lang === 'id-ID');
+                
+                if (indonesianVoice) {
+                    speechUtterance.voice = indonesianVoice;
+                }
+                
+                // Putar suara
+                speechSynthesis.speak(speechUtterance);
+            }
+        }
+        
+        // Animasi untuk form groups pada scroll
+        function checkFormGroups() {
+            const formGroups = document.querySelectorAll('.form-group');
+            formGroups.forEach((group, index) => {
+                setTimeout(() => {
+                    group.classList.add('animate');
+                }, index * 100);
+            });
+        }
+        
+        // Animasi tombol daftar
+        function setupButtonAnimation() {
+            const btn = document.querySelector('.btn');
+            
+            btn.addEventListener('mouseover', () => {
+                btn.style.animation = 'pulse 1s infinite';
+            });
+            
+            btn.addEventListener('mouseout', () => {
+                btn.style.animation = 'animate__pulse animate__infinite';
+            });
+        }
+        
+        // Force browsers to load voices
+        speechSynthesis.onvoiceschanged = function() {
+            const voices = speechSynthesis.getVoices();
+            console.log("Voices loaded:", voices.length);
+        };
+        
+        // Form submission handler
+        document.getElementById('pendaftaranForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Animasi tombol saat di klik
+            const btn = document.querySelector('.btn');
+            btn.innerHTML = '<span style="display:inline-block;animation:spin 1s infinite linear;">↻</span> Mengirim...';
+            btn.style.pointerEvents = 'none';
+            btn.style.opacity = '0.8';
+            
+            setTimeout(() => {
+                // Kumpulkan semua data dari form
+                const form = document.getElementById('pendaftaranForm');
+                const formElements = form.elements;
+                let message = "PENDAFTARAN CALON PENGANTIN\n\n";
+                
+                // Data Calon Pengantin Pria
+                message += "*DATA CALON PENGANTIN PRIA*\n";
+                message += "NIK: " + formElements[0].value + "\n";
+                message += "Nama Lengkap: " + formElements[1].value + "\n";
+                message += "Tempat Lahir: " + formElements[2].value + "\n";
+                message += "Tanggal Lahir: " + formElements[3].value + "\n";
+                message += "Alamat: " + formElements[4].value + "\n";
+                message += "Agama: " + formElements[5].value + "\n";
+                message += "Pekerjaan: " + formElements[6].value + "\n";
+                message += "Status Perkawinan: " + formElements[7].value + "\n";
+                message += "Nomor Telepon: " + formElements[8].value + "\n\n";
+                
+                // Data Calon Pengantin Wanita
+                message += "*DATA CALON PENGANTIN WANITA*\n";
+                message += "NIK: " + formElements[9].value + "\n";
+                message += "Nama Lengkap: " + formElements[10].value + "\n";
+                message += "Tempat Lahir: " + formElements[11].value + "\n";
+                message += "Tanggal Lahir: " + formElements[12].value + "\n";
+                message += "Alamat: " + formElements[13].value + "\n";
+                message += "Agama: " + formElements[14].value + "\n";
+                message += "Pekerjaan: " + formElements[15].value + "\n";
+                message += "Status Perkawinan: " + formElements[16].value + "\n";
+                message += "Nomor Telepon: " + formElements[17].value + "\n\n";
+                
+                // Informasi Pernikahan
+                message += "*INFORMASI PERNIKAHAN*\n";
+                message += "Tanggal Akad Nikah: " + formElements[18].value + "\n";
+                
+                // Encode pesan untuk URL
+                const encodedMessage = encodeURIComponent(message);
+                
+                // Ganti dengan nomor WhatsApp penerima yang valid (format: kode negara tanpa +)
+                const phoneNumber = "6285184824418"; // Ganti dengan nomor WhatsApp admin
+                
+                // Buat URL WhatsApp
+                const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+                
+                // Buka WhatsApp di tab baru
+                window.open(whatsappURL, '_blank');
+                
+                // Reset tombol setelah pengiriman
+                btn.innerHTML = 'Daftar Sekarang';
+                btn.style.pointerEvents = 'auto';
+                btn.style.opacity = '1';
+            }, 1000); // Delay pengiriman untuk efek animasi
+        });
+    </script>
+</body>
+</html>
